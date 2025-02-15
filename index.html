@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <!--HAZIRLAYAN: CEREN ÜRKÜT-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evcil Hayvan Seçim Yardımcısı</title>
+    <center><h1>Evinde sevimli dostlarımızdan birine yer vermek istiyor ama karar veremiyorsan doğru yerdesin :)</h1></center>
+
+    <style> 
+      body {
+            background-image: url('https://c.wallhere.com/photos/73/96/Netflix_Twig_Hilda_Unist-1471283.jpg!d');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: bottom;
+            
+        }
+
+        h1 {
+            margin-top: 200px;
+            color: #c65d5d; 
+            font-size: 50px; 
+            font-weight: bold;
+            width: 1100px;
+            text-align: center; 
+           background-color: #eec4c4be;
+           border-radius: 15px;
+           font-family: sans-serif;
+
+        }
+
+        .kategoriButton {
+            height: 70px;
+            width: 250px;
+            font-size: 25px; 
+            font-family: sans-serif;
+            margin: 10px; 
+            text-align: center;
+            background-color: #eec4c4;
+            color: #c65d5d;
+            border-radius: 20px;
+            border: 1px solid;
+            cursor: pointer;
+          
+        }
+        .kategoriButton:hover{
+            background: #eb9a90;
+            transform: scale(1.1);
+
+        }
+
+        h2{
+            color: #c65d5d;
+            background-color: #eec4c4;
+            font-family: sans-serif;
+            text-align: center;
+        }
+        p{
+            background-color: #eec4c4;
+            color: #c65d5d;
+            font-family: sans-serif;
+            font-size: 26px;
+
+        }
+
+    </style>
+</head>
+
+<body> 
+    <center>
+        <button class="kategoriButton" onclick="soruSehir()">Nerede yaşıyorsun?</button>
+        <button class="kategoriButton" onclick="aciklamaUzmanSistem()">Uzman Sistem</button>
+    </center>
+    
+    <div id="alternatifDiv"></div>
+
+    <script>
+        var cevaplar = {};
+
+        function soruSehir() {
+            var htmlIcerik = "<button class='kategoriButton' onclick=\"cevaplar.sehir='sehir'; soruYerlesim();\">Şehir</button>";
+            htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.sehir='yayla'; soruYerlesim();\">Yayla</button>";
+            htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.sehir='koy'; soruYerlesim();\">Köy</button>";
+            document.getElementById("alternatifDiv").innerHTML = htmlIcerik;
+        }
+
+        function soruYerlesim() {
+            var htmlIcerik = "";
+
+            switch (cevaplar.sehir) {
+                case 'sehir':
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.yerlesim='apartman'; soruCins();\">Apartman</button>";
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.yerlesim='site'; soruCins();\">Site</button>";
+                    break;
+                case 'yayla':
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.yerlesim='cadir'; soruHayvan();\">Çadır</button>";
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.yerlesim='ciftlikEvi'; soruHayvan();\">Çiftlik Evi</button>";
+                    break;
+                case 'koy':
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.yerlesim='bahceliMüstakilEvi'; soruHayvan();\">Bahçeli Müstakil Ev</button>";
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.yerlesim='bahcesizMüstakilEvi'; soruHayvan();\">Bahçesiz Müstakil Ev</button>";
+                    break;
+            }
+
+            document.getElementById("alternatifDiv").innerHTML = htmlIcerik;
+        }
+
+        function soruCins() {
+            var htmlIcerik = "";
+
+            switch (cevaplar.yerlesim) {
+                case 'apartman':
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.cins=['kus', 'hamster', 'balik']; cevapGoster();\">Kuş, Hamster, Balık</button>";
+                    break;
+                case 'site':
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.cins=['kedi', 'köpek', 'kaplumbağa']; cevapGoster();\">Kedi, Köpek, Kaplumbağa</button>";
+                    break;
+            }
+
+            document.getElementById("alternatifDiv").innerHTML = htmlIcerik;
+        }
+
+        function soruHayvan() {
+            var htmlIcerik = "";
+
+            switch (cevaplar.yerlesim) {
+                case 'cadir':
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.hayvan=['koyun', 'keci', 'inek']; cevapGoster();\">Koyun, Keçi, İnek</button>";
+                    break;
+                case 'ciftlikEvi':
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.hayvan=['at', 'esek', 'ari']; cevapGoster();\">At, Eşek, Arı</button>";
+                    break;
+                case 'bahceliMüstakilEvi':
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.hayvan=['kopek', 'tavuk', 'ordek']; cevapGoster();\">Köpek, Tavuk, Ördek</button>";
+                    break;
+                case 'bahcesizMüstakilEvi':
+                    htmlIcerik += "<button class='kategoriButton' onclick=\"cevaplar.hayvan=['kopek', 'tavsan', 'kedi']; cevapGoster();\">Köpek, Tavşan, Kedi</button>";
+                    break;
+            }
+
+            document.getElementById("alternatifDiv").innerHTML = htmlIcerik;
+        }
+
+        function aciklamaUzmanSistem() {
+            var uzmanSistemAciklama = "<h2>Uzman Sistemler</h2>";
+            uzmanSistemAciklama += "<p>Uzman sistem, belirli bir konuda uzmanlık düzeyinde bilgiye sahip olan bir bilgisayar programıdır. Bu sistemler, genellikle bir uzmanın karar verme sürecini taklit ederek, belirli bir alandaki sorunları çözmeye veya önerilerde bulunmaya yönelik tasarlanmıştır. Uzman sistemler, geniş bir bilgi tabanına dayanır ve bu bilgileri kullanarak sorunları çözmek veya kararlar vermek için önceden belirlenmiş kuralları uygular. Bu şekilde, belirli bir uzmanlık alanında insan benzeri zeki davranış sergileyebilirler.</p>";
+
+            document.getElementById("alternatifDiv").innerHTML = uzmanSistemAciklama;
+        }
+    </script>
+</body>
+
+</html>
